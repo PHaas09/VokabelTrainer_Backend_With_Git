@@ -30,6 +30,7 @@ public class QuickStore {
             return names;
         }
     }
+
     public static List<String>loadquizzes(String name) throws IOException {
         Path file = quizPath(name);
         if(!Files.exists(file)){
