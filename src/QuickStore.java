@@ -1,9 +1,6 @@
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -39,8 +36,12 @@ public class QuickStore {
         return Files.readAllLines(file, StandardCharsets.UTF_8);
     }
 
-    public static void saveQuiz(String name){
-
+    public static void saveQuiz(String name, List<String> lines)throws IOException{
+        ensureDir();
+        Path file = quizPath(name);
+        Path tmp = Files.createTempFile(QUIZ_DIR, ".tmp-"+safe(name),".txt");
+        Files.write(tmp, lines, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.move(tmp, file, StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);
     }
 
     public static Path quizPath(String name) throws IOException {
