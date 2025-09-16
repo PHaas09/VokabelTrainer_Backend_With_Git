@@ -39,6 +39,10 @@ public class QuickStore {
         return Files.readAllLines(file, StandardCharsets.UTF_8);
     }
 
+    public static void saveQuiz(String name){
+
+    }
+
     public static Path quizPath(String name) throws IOException {
         return QUIZ_DIR.resolve(safe(name) + ".txt");
     }
